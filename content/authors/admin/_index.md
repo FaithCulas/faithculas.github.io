@@ -85,9 +85,9 @@ work:
     summary: |
       Part of the development team at Development Bank of Singapore (DBS) in the Treasury and Markets department
       Responsibilities include:
-      - Migrated a document management and generation system for corportae customers in four countries. It was optimised to process trade documents from minutes to a few seconds using **Aspose**.
-      - Developed a dashboard on **Kibana** to display daily jobs and send alerts using structured arguments in **elk**.
-      - Development of banking systems in **Java** and **Spring Boot**
+      - Migrated a document management and generation system for corportae customers in four countries. It was optimised to process trade documents from minutes to a few seconds using Aspose.
+      - Developed a dashboard on Kibana to display daily jobs and send alerts using structured arguments in elk.
+      - Development of banking systems in Java and Spring Boot
   - position: Software Engineer
     company_name: ZeroBeta Inc.
     company_url: ''
@@ -97,8 +97,8 @@ work:
     summary: |
       Part of the development team.
       Responsibilities include:
-      - Automated cloud resource allocation scripts through **AWS Cloud Formation**
-      - Developed a library to store and retrieve secrets from **AWS Secrets Manager**
+      - Automated cloud resource allocation scripts through AWS Cloud Formation
+      - Developed a library to store and retrieve secrets from AWS Secrets Manager
   - position: Software Engineer
     company_name: Axiata Digital Labs
     company_url: ''
@@ -108,8 +108,8 @@ work:
     summary: |
       Part of the development team.
       Responsibilities include:
-      -  Developed an application for 15 million telecom users to view their purchased plans and purchase new plans in their android devices. This solution is integrated with **Google’s Mobile Data Plan Sharing API**
-      - Developed a Notification system for 1.4 million postpaid customers using **Java** and **Spring Boot**. Unit test written with more than 80% coverage and Load testing done using **JMeter**
+      -  Developed an application for 15 million telecom users to view their purchased plans and purchase new plans in their android devices. This solution is integrated with Google’s Mobile Data Plan Sharing API
+      - Developed a Notification system for 1.4 million postpaid customers using Java and Spring Boot. Unit test written with more than 80% coverage and Load testing done using JMeter
   - position: Software Engineer Intern
     company_name: Axiata Digital Labs
     company_url: ''
@@ -119,7 +119,7 @@ work:
     summary: |
       Part of the development team.
       Responsibilities include:
-      -  Developed a web application to register SIMs online using **AWS Rekognition** and **Google vision OCR**
+      -  Developed a web application to register SIMs online using AWS Rekognition and Google vision OCR
 # Skills
 # Add your own SVG icons to `assets/media/icons/`
 skills:
