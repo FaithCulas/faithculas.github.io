@@ -49,7 +49,7 @@ education:
     date_start: 2024-02-01
     date_end: 2027-01-31
     summary: |
-      Thesis on Advancing Cognitive Diversty in Software Engineering Tools and Practices. Supervised by [Kelly Blincoe](https://example.com](https://kblincoe.github.io).
+      Thesis on Advancing Cognitive Diversty in Software Engineering Tools and Practices. Supervised by [Kelly Blincoe](https://kblincoe.github.io).
     button:
       text: 'Read Thesis'
       url: 'https://example.com'
