@@ -2,12 +2,9 @@
 # Display name
 title: 吳健雄
 
-# Name pronunciation (optional)
-name_pronunciation: Chien Shiung Wu
-
 # Full name (for SEO)
-first_name: Shiung Wu
-last_name: Chien
+first_name: Faith
+last_name: Culas
 
 # Status emoji
 status:
@@ -33,14 +30,10 @@ profiles:
   - icon: at-symbol
     url: 'mailto:your-email@example.com'
     label: E-mail Me
-  - icon: brands/x
-    url: https://twitter.com/GetResearchDev
-  - icon: brands/instagram
-    url: https://www.instagram.com/
   - icon: brands/github
-    url: https://github.com/gcushen
+    url: https://github.com/FaithCulas
   - icon: brands/linkedin
-    url: https://www.linkedin.com/
+    url: https://www.linkedin.com/in/faith-culas
   - icon: academicons/google-scholar
     url: https://scholar.google.com/
   - icon: academicons/orcid
