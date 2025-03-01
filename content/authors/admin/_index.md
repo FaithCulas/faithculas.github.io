@@ -176,4 +176,4 @@ awards:
 
 ## About Me
 
-Chien Shiung Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Faith Culas is a PhD researcher at the Human Aspects of Software Engineering Lab (HASEL) at the University of Auckland. My research focuses on enhancing software engineering tools and practices, with an emphasis on cognitive diversity. I have three years of industry experience as a software engineer in Singapore and Sri Lanka. I enjoy problem-solving and being challenged.
