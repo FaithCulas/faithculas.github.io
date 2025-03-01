@@ -76,7 +76,7 @@ work:
       - lorem ipsum dolor sit amet, consectetur adipiscing elit
       - lorem ipsum dolor sit amet, consectetur adipiscing elit
       - lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - position:Advanced Application Developer
+  - position: Advanced Application Developer
     company_name: NTT Data
     company_url: ''
     company_logo: ''
