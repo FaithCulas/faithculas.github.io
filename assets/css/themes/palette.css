@@ -1,0 +1,14 @@
+/* Hugo Blox color theme: Custom */
+:root {
+  --color-primary-50: 249 245 235;  /* #F9F5EB */
+  --color-primary-100: 228 220 207; /* #E4DCCF */
+  --color-primary-200: 220 205 180; /* Intermediate shade */
+  --color-primary-300: 200 180 150; /* Intermediate shade */
+  --color-primary-400: 230 110 110; /* Close to #EA5455 */
+  --color-primary-500: 234 84 85;   /* #EA5455 */
+  --color-primary-600: 200 70 75;   /* Darker variant of #EA5455 */
+  --color-primary-700: 150 50 60;   /* Deeper red */
+  --color-primary-800: 50 80 120;   /* Transition towards #002B5B */
+  --color-primary-900: 0 43 91;     /* #002B5B */
+  --color-primary-950: 0 30 70;     /* Even darker variant of #002B5B */
+}
