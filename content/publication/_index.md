@@ -10,4 +10,10 @@ view: citation
 banner:
   caption: ''
   image: ''
+
+# Folder filters to exclude specific folders.
+filters:
+  exclude_folders:
+    - preprint
+    - journal-article
 ---
