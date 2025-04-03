@@ -6,7 +6,7 @@
 # Appearance
 appearance:
   mode: system
-  color: palette
+  color: blue
 
 # SEO
 marketing:
