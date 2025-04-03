@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1918 1080">
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1919 1081">
   <defs>
     <style>
-      .cls-1 {
-        fill: #fff;
+      .cls-1, .cls-2 {
+        fill: #3f72af;
+      }
+
+      .cls-2 {
+        stroke: #3f72af;
+        stroke-miterlimit: 10;
       }
     </style>
   </defs>
-  <rect class="cls-1" x=".5" y=".5" width="1917" height="1079"/>
-  <path class="cls-1" d="M1917,1v1078H1V1h1916M1918,0H0v1080h1918V0h0Z"/>
+  <rect class="cls-1" x="1" y="1" width="1917" height="1079"/>
+  <path class="cls-2" d="M1917.5,1.5v1078H1.5V1.5h1916M1918.5.5H.5v1080h1918V.5h0Z"/>
 </svg>
