@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications 🎓 Faith Culas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="markdown-renderer.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" id="nav-name">[Your Name]</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="papers.html" class="active">Publications</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="experience.html">Experience</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Publications</h1>
+                <p>A comprehensive list of my research publications and contributions</p>
+            </div>
+        </section>
+
+        <section class="publications">
+            <div class="container" id="publications-content">
+                <div class="publication-item">
+                    <h3>Loading publications...</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Citation Modal -->
+    <div id="citation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Citation</h2>
+            <textarea id="citation-text" readonly></textarea>
+            <button id="copy-citation" class="btn-link">Copy to Clipboard</button>
+            <p id="copy-message" class="copy-message"></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p id="footer-text">&copy; 2025 [Your Name]. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        async function loadName() {
+            const response = await fetch('content/profile.md');
+            const text = await response.text();
+            const lines = text.split('\n');
+            let name = '';
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('## Name')) {
+                    name = lines[i + 1].trim();
+                    break;
+                }
+            }
+            document.getElementById('nav-name').textContent = name;
+            document.getElementById('footer-text').textContent = `© 2025 ${name}. All rights reserved.`;
+        }
+
+        async function loadPublications() {
+            const container = document.getElementById('publications-content');
+            container.innerHTML = '';
+
+            // Load papers list
+            const listResponse = await fetch('content/publications/papers-list.json');
+            const papersList = await listResponse.json();
+
+            for (const paper of papersList.papers) {
+                try {
+                    const infoResponse = await fetch(`content/publications/${paper}/info.md`);
+                    const info = await infoResponse.text();
+
+                    const item = document.createElement('div');
+                    item.className = 'publication-item';
+                    
+                    // Parse the publication text to format the title
+                    const text = info.trim();
+                    // Format: "Author (Year). Title. In Venue."
+                    // Extract title between "). " and ". In "
+                    const titleMatch = text.match(/\)\.\s+(.+?)\.\s+In\s+/);
+                    let formattedText = text;
+                    
+                    if (titleMatch) {
+                        const title = titleMatch[1];
+                        formattedText = text.replace(title, `<span class="paper-title">${title}</span>`);
+                    }
+
+                    item.innerHTML = `
+                        <a href="publication-template.html?paper=${paper}" class="publication-link">
+                            <p class="publication-text">${formattedText}</p>
+                        </a>
+                        <div class="paper-links">
+                            <a href="content/publications/${paper}/paper.pdf" class="btn-link" target="_blank">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </a>
+                            <button class="btn-link cite-btn" data-paper="${paper}">
+                                <i class="fas fa-quote-right"></i> Cite
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                } catch (error) {
+                    console.error(`Error loading ${paper}:`, error);
+                }
+            }
+
+            // Add click handlers for cite buttons
+            document.querySelectorAll('.cite-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const paper = e.target.dataset.paper;
+                    await showCitation(paper);
+                });
+            });
+        }
+
+        async function showCitation(paper) {
+            try {
+                const response = await fetch(`content/publications/${paper}/cite.bib`);
+                const citation = await response.text();
+
+                document.getElementById('citation-text').value = citation;
+                document.getElementById('citation-modal').style.display = 'block';
+                document.getElementById('copy-message').textContent = '';
+            } catch (error) {
+                console.error('Error loading citation:', error);
+            }
+        }
+
+        // Modal controls
+        const modal = document.getElementById('citation-modal');
+        const closeBtn = document.querySelector('.close');
+        const copyBtn = document.getElementById('copy-citation');
+
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        };
+
+        copyBtn.onclick = () => {
+            const textarea = document.getElementById('citation-text');
+            textarea.select();
+            document.execCommand('copy');
+            document.getElementById('copy-message').textContent = 'Copied to clipboard!';
+            setTimeout(() => {
+                document.getElementById('copy-message').textContent = '';
+            }, 2000);
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadName();
+            loadPublications();
+        });
+    </script>
+</body>
+
+</html>

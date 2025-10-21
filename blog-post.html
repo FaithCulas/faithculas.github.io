@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Blog Post 🎓 Faith Culas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" id="nav-name">[Your Name]</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="papers.html">Publications</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="experience.html">Experience</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <article class="blog-post">
+            <div class="container">
+                <a href="blog.html" class="back-link">← Back to Blog</a>
+                
+                <div id="blog-post-content">
+                    <p>Loading...</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p id="footer-text">&copy; 2025 [Your Name]. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('post');
+        
+        async function loadName() {
+            const response = await fetch('content/profile.md');
+            const text = await response.text();
+            const lines = text.split('\n');
+            let name = '';
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('## Name')) {
+                    name = lines[i + 1].trim();
+                    break;
+                }
+            }
+            document.getElementById('nav-name').textContent = name;
+            document.getElementById('footer-text').textContent = `© 2025 ${name}. All rights reserved.`;
+        }
+        
+        function generateCoverSVG(title) {
+            // Create a simple, clean SVG with the title
+            const svg = `
+                <svg width="1200" height="400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="grad-${postId}" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1e5a8e;stop-opacity:0.1" />
+                            <stop offset="100%" style="stop-color:#2c3e50;stop-opacity:0.05" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="1200" height="400" fill="url(#grad-${postId})"/>
+                    <text x="600" y="200" font-family="Arial, sans-serif" font-size="48" font-weight="600" fill="#2c3e50" text-anchor="middle" dominant-baseline="middle">
+                        ${title.length > 50 ? title.substring(0, 47) + '...' : title}
+                    </text>
+                </svg>
+            `;
+            return 'data:image/svg+xml;base64,' + btoa(svg);
+        }
+        
+        async function loadBlogPost() {
+            if (!postId) {
+                window.location.href = 'blog.html';
+                return;
+            }
+            
+            try {
+                const metaResponse = await fetch(`content/blog/${postId}/meta.json`);
+                const meta = await metaResponse.json();
+                
+                const contentResponse = await fetch(`content/blog/${postId}/content.md`);
+                const markdown = await contentResponse.text();
+                
+                document.getElementById('page-title').textContent = `${meta.title} 🎓 Faith Culas`;
+                
+                let coverImageHtml = '';
+                if (meta.coverImage) {
+                    const fallbackSVG = generateCoverSVG(meta.title);
+                    coverImageHtml = `<img src="content/blog/${postId}/${meta.coverImage}" alt="${meta.title}" class="blog-post-cover" onerror="this.src='${fallbackSVG}'">`;
+                }
+                
+                let tagsHtml = '';
+                if (meta.tags && meta.tags.length > 0) {
+                    tagsHtml = `<div class="blog-post-tags">${meta.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`;
+                }
+                
+                const contentHtml = marked.parse(markdown);
+                
+                document.getElementById('blog-post-content').innerHTML = `
+                    ${coverImageHtml}
+                    <h1 class="blog-post-title">${meta.title}</h1>
+                    <div class="blog-post-meta">
+                        <span><i class="far fa-calendar"></i> ${meta.date}</span>
+                        ${meta.readTime ? `<span><i class="far fa-clock"></i> ${meta.readTime}</span>` : ''}
+                    </div>
+                    ${tagsHtml}
+                    <div class="blog-post-body">${contentHtml}</div>
+                `;
+                
+                // Apply syntax highlighting to all code blocks
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                document.getElementById('blog-post-content').innerHTML = '<p>Blog post not found.</p>';
+            }
+        }
+        
+        // Handle image errors
+        function handleImageError(img, type = 'image') {
+            const placeholders = {
+                'avatar': 'assets/placeholder-avatar.svg',
+                'image': 'assets/placeholder-image.svg'
+            };
+            img.src = placeholders[type] || placeholders['image'];
+            img.onerror = null;
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            loadName();
+            loadBlogPost();
+            
+            // Add error handling to images in blog content
+            setTimeout(() => {
+                document.querySelectorAll('.blog-post-body img').forEach(img => {
+                    img.onerror = function() { handleImageError(this, 'image'); };
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>

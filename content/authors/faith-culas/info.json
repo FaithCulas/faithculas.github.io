@@ -1,0 +1,15 @@
+{
+  "name": "Faith Culas",
+  "title": "PhD Student",
+  "affiliation": "The University of Auckland",
+  "bio": "PhD researcher at the Human Aspects of Software Engineering Lab (HASEL)",
+  "photo": "content/authors/faith-culas/photo.jpg",
+  "links": {
+    "email": "your.email@auckland.ac.nz",
+    "website": "index.html",
+    "github": "https://github.com/yourusername",
+    "linkedin": "https://linkedin.com/in/yourusername",
+    "orcid": "https://orcid.org/0000-0000-0000-0000",
+    "scholar": "https://scholar.google.com/citations?user=YOUR_ID"
+  }
+}

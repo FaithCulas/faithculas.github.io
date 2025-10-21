@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Publication</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" id="nav-name">[Your Name]</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="papers.html">Publications</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="experience.html">Experience</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="publication-detail">
+            <div class="container">
+                <a href="papers.html" class="back-link">← Back to Publications</a>
+                
+                <h1 id="pub-title">Loading...</h1>
+                
+                <div class="pub-meta">
+                    <span class="pub-authors" id="pub-authors"></span>
+                    <span class="pub-separator">•</span>
+                    <span class="pub-date" id="pub-date"></span>
+                </div>
+                
+                <div class="pub-venue" id="pub-venue"></div>
+                
+                <div class="pub-type-badge" id="pub-type"></div>
+                
+                <div class="pub-tags" id="pub-tags"></div>
+                
+                <div class="pub-actions">
+                    <a href="#" id="pdf-link" class="btn-link" target="_blank">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </a>
+                    <button id="cite-btn" class="btn-link">
+                        <i class="fas fa-quote-right"></i> Cite
+                    </button>
+                </div>
+                
+                <div class="pub-section">
+                    <h2>Abstract</h2>
+                    <p id="pub-abstract"></p>
+                </div>
+                
+                <div class="pub-section">
+                    <h3 class="authors-heading">Authors</h3>
+                    <div id="authors-list" class="authors-grid"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Citation Modal -->
+    <div id="citation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Citation</h2>
+            <textarea id="citation-text" readonly></textarea>
+            <button id="copy-citation" class="btn-link">Copy to Clipboard</button>
+            <p id="copy-message" class="copy-message"></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p id="footer-text">&copy; 2025 [Your Name]. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get paper ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const paperId = urlParams.get('paper');
+        
+        async function loadName() {
+            const response = await fetch('content/profile.md');
+            const text = await response.text();
+            const lines = text.split('\n');
+            let name = '';
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('## Name')) {
+                    name = lines[i + 1].trim();
+                    break;
+                }
+            }
+            document.getElementById('nav-name').textContent = name;
+            document.getElementById('footer-text').textContent = `© 2025 ${name}. All rights reserved.`;
+        }
+        
+        async function loadPublication() {
+            if (!paperId) {
+                window.location.href = 'papers.html';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`content/publications/${paperId}/details.md`);
+                const text = await response.text();
+                const lines = text.split('\n');
+                
+                let data = {
+                    title: '',
+                    authorIds: [],
+                    date: '',
+                    type: '',
+                    publication: '',
+                    tags: [],
+                    abstract: ''
+                };
+                
+                let section = '';
+                
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line.startsWith('## Title')) section = 'title';
+                    else if (line.startsWith('## Authors')) section = 'authors';
+                    else if (line.startsWith('## Date')) section = 'date';
+                    else if (line.startsWith('## Type')) section = 'type';
+                    else if (line.startsWith('## Publication')) section = 'publication';
+                    else if (line.startsWith('## Tags')) section = 'tags';
+                    else if (line.startsWith('## Abstract')) section = 'abstract';
+                    else if (line && !line.startsWith('#')) {
+                        if (section === 'title') data.title = line;
+                        else if (section === 'authors') {
+                            data.authorIds = line.split(',').map(id => id.trim());
+                        }
+                        else if (section === 'date') data.date = line;
+                        else if (section === 'type') data.type = line;
+                        else if (section === 'publication') data.publication = line;
+                        else if (section === 'tags' && line.startsWith('-')) {
+                            data.tags.push(line.substring(1).trim());
+                        }
+                        else if (section === 'abstract') data.abstract += line + ' ';
+                    }
+                }
+                
+                // Load author names for display
+                let authorNames = [];
+                for (const authorId of data.authorIds) {
+                    try {
+                        const authorResponse = await fetch(`content/authors/${authorId}/info.json`);
+                        const authorInfo = await authorResponse.json();
+                        authorNames.push(authorInfo.name);
+                    } catch (error) {
+                        console.error(`Error loading author ${authorId}:`, error);
+                    }
+                }
+                
+                // Update page
+                document.getElementById('page-title').textContent = `${data.title} 🎓 Faith Culas`;
+                document.getElementById('pub-title').textContent = data.title;
+                document.getElementById('pub-authors').textContent = authorNames.join(', ');
+                document.getElementById('pub-date').textContent = data.date;
+                document.getElementById('pub-venue').textContent = data.publication;
+                document.getElementById('pub-type').textContent = data.type;
+                document.getElementById('pub-abstract').textContent = data.abstract.trim();
+                document.getElementById('pdf-link').href = `content/publications/${paperId}/paper.pdf`;
+                
+                // Add tags
+                const tagsContainer = document.getElementById('pub-tags');
+                tagsContainer.innerHTML = data.tags.map(tag => 
+                    `<span class="tag">${tag}</span>`
+                ).join('');
+                
+                // Load and display authors
+                await loadAuthors(data.authorIds);
+                
+            } catch (error) {
+                console.error('Error loading publication:', error);
+                document.querySelector('.publication-detail .container').innerHTML = 
+                    '<p>Publication not found.</p><a href="papers.html">Back to Publications</a>';
+            }
+        }
+        
+        async function showCitation() {
+            try {
+                const response = await fetch(`content/publications/${paperId}/cite.bib`);
+                const citation = await response.text();
+                
+                document.getElementById('citation-text').value = citation;
+                document.getElementById('citation-modal').style.display = 'block';
+                document.getElementById('copy-message').textContent = '';
+            } catch (error) {
+                console.error('Error loading citation:', error);
+            }
+        }
+        
+        // Modal controls
+        const modal = document.getElementById('citation-modal');
+        const closeBtn = document.querySelector('.close');
+        const copyBtn = document.getElementById('copy-citation');
+        const citeBtn = document.getElementById('cite-btn');
+        
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        };
+        
+        citeBtn.onclick = showCitation;
+        
+        copyBtn.onclick = () => {
+            const textarea = document.getElementById('citation-text');
+            textarea.select();
+            document.execCommand('copy');
+            document.getElementById('copy-message').textContent = 'Copied to clipboard!';
+            setTimeout(() => {
+                document.getElementById('copy-message').textContent = '';
+            }, 2000);
+        };
+        
+        async function loadAuthors(authorIds) {
+            const container = document.getElementById('authors-list');
+            container.innerHTML = '';
+            
+            for (const authorId of authorIds) {
+                try {
+                    const response = await fetch(`content/authors/${authorId}/info.json`);
+                    const author = await response.json();
+                    
+                    const authorCard = document.createElement('div');
+                    authorCard.className = 'author-card';
+                    
+                    let linksHtml = '';
+                    if (author.links) {
+                        linksHtml = '<div class="author-links">';
+                        if (author.links.email) linksHtml += `<a href="mailto:${author.links.email}" title="Email"><i class="fas fa-envelope"></i></a>`;
+                        if (author.links.website) linksHtml += `<a href="${author.links.website}" title="Website" target="_blank"><i class="fas fa-globe"></i></a>`;
+                        if (author.links.github) linksHtml += `<a href="${author.links.github}" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>`;
+                        if (author.links.linkedin) linksHtml += `<a href="${author.links.linkedin}" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>`;
+                        if (author.links.orcid) linksHtml += `<a href="${author.links.orcid}" title="ORCID" target="_blank"><i class="fab fa-orcid"></i></a>`;
+                        if (author.links.scholar) linksHtml += `<a href="${author.links.scholar}" title="Google Scholar" target="_blank"><i class="fas fa-graduation-cap"></i></a>`;
+                        linksHtml += '</div>';
+                    }
+                    
+                    authorCard.innerHTML = `
+                        <img src="${author.photo}" alt="${author.name}" class="author-photo" onerror="this.src='assets/placeholder-avatar.svg'">
+                        <div class="author-info">
+                            <h3>${author.name}</h3>
+                            <p class="author-title">${author.title}</p>
+                            ${linksHtml}
+                        </div>
+                    `;
+                    container.appendChild(authorCard);
+                } catch (error) {
+                    console.error(`Error loading author ${authorId}:`, error);
+                }
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            loadName();
+            loadPublication();
+        });
+    </script>
+</body>
+</html>

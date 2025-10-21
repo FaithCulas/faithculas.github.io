@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faith Culas 🎓 Research Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="markdown-renderer.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand" id="nav-name">[Your Name]</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="papers.html">Publications</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="experience.html">Experience</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <img src="content/avatar.jpg" alt="Profile Photo" class="profile-photo">
+                    <h1 id="profile-name">[Your Name]</h1>
+                    <p class="subtitle" id="profile-title">PhD Researcher | [Your Field]</p>
+                    <p class="bio" id="profile-bio">Brief introduction about yourself and your research interests.</p>
+
+                    <div class="social-links">
+                        <a href="mailto:your.email@example.com" class="social-link" title="Email" id="email-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://github.com/yourusername" class="social-link" title="GitHub" target="_blank"
+                            id="github-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/yourusername" class="social-link" title="LinkedIn"
+                            target="_blank" id="linkedin-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://orcid.org/0000-0000-0000-0000" class="social-link" title="ORCID"
+                            target="_blank" id="orcid-link">
+                            <i class="fab fa-orcid"></i>
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=YOUR_ID" class="social-link"
+                            title="Google Scholar" target="_blank" id="scholar-link">
+                            <i class="fas fa-graduation-cap"></i>
+                        </a>
+                    </div>
+
+                    <div class="resume-download">
+                        <a href="content/resume.pdf" class="cv-button" target="_blank">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div id="about-content">
+                    <p>Write a comprehensive overview of your academic background, research interests, and professional
+                        goals. Highlight your expertise and what drives your research.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="interests-education">
+            <div class="container">
+                <div class="two-column-grid">
+                    <div class="column">
+                        <h2>Interests</h2>
+                        <ul id="interests-list">
+                            <li>Loading interests...</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h2>Education</h2>
+                        <div id="education-list">
+                            <p>Loading education...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-research">
+            <div class="container">
+                <h2>My Research</h2>
+                <div id="research-overview">
+                    <p>Loading research overview...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-publications">
+            <div class="container">
+                <h2>Recent Publications</h2>
+                <div id="recent-pubs-content">
+                    <p>Loading publications...</p>
+                </div>
+                <a href="papers.html" class="view-all-link">View All Publications →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p id="footer-text">&copy; 2025 [Your Name]. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load profile data from markdown
+        async function loadProfile() {
+            const response = await fetch('content/profile.md');
+            const text = await response.text();
+            const lines = text.split('\n');
+
+            let name = '', title = '', field = '', bio = '', about = '';
+            let interests = [];
+            let section = '';
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('## Name')) section = 'name';
+                else if (line.startsWith('## Title')) section = 'title';
+                else if (line.startsWith('## Field')) section = 'field';
+                else if (line.startsWith('## Bio')) section = 'bio';
+                else if (line.startsWith('## About Me')) section = 'about';
+                else if (line.startsWith('## Interests')) section = 'interests';
+                else if (line && !line.startsWith('#')) {
+                    if (section === 'name') name = line;
+                    else if (section === 'title') title = line;
+                    else if (section === 'field') field = line;
+                    else if (section === 'bio') bio += line + ' ';
+                    else if (section === 'about') about += line + '\n\n';
+                    else if (section === 'interests' && line.startsWith('-')) {
+                        interests.push(line.substring(1).trim());
+                    }
+                }
+            }
+
+            document.getElementById('nav-name').textContent = name;
+            document.getElementById('profile-name').textContent = name;
+            document.getElementById('profile-title').textContent = `${title} | ${field}`;
+            document.getElementById('profile-bio').textContent = bio.trim();
+            document.getElementById('about-content').innerHTML = `<p>${about.trim().replace(/\n\n/g, '</p><p>')}</p>`;
+            document.getElementById('footer-text').textContent = `© 2025 ${name}. All rights reserved.`;
+
+            // Load interests
+            if (interests.length > 0) {
+                const interestsList = document.getElementById('interests-list');
+                interestsList.innerHTML = interests.map(interest => `<li>${interest}</li>`).join('');
+            }
+        }
+
+        // Load research overview
+        async function loadResearch() {
+            const response = await fetch('content/research.md');
+            const text = await response.text();
+            const lines = text.split('\n');
+
+            let overview = '';
+            let inOverview = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('## Overview')) {
+                    inOverview = true;
+                } else if (line.startsWith('##')) {
+                    inOverview = false;
+                } else if (inOverview && line) {
+                    overview += line + '\n\n';
+                }
+            }
+
+            if (overview) {
+                document.getElementById('research-overview').innerHTML = `<p>${overview.trim().replace(/\n\n/g, '</p><p>')}</p>`;
+            }
+        }
+
+        // Load recent publications (top 3)
+        async function loadRecentPublications() {
+            const listResponse = await fetch('content/publications/papers-list.json');
+            const papersList = await listResponse.json();
+            const recentPapers = papersList.papers.slice(0, 3);
+
+            const container = document.getElementById('recent-pubs-content');
+            container.innerHTML = '';
+
+            for (const paper of recentPapers) {
+                try {
+                    const infoResponse = await fetch(`content/publications/${paper}/info.md`);
+                    const info = await infoResponse.text();
+
+                    const item = document.createElement('div');
+                    item.className = 'publication-item-home';
+
+                    // Parse the publication text to format the title
+                    const text = info.trim();
+                    const titleMatch = text.match(/\)\.\s+(.+?)\.\s+In\s+/);
+                    let formattedText = text;
+
+                    if (titleMatch) {
+                        const title = titleMatch[1];
+                        formattedText = text.replace(title, `<span class="paper-title">${title}</span>`);
+                    }
+
+                    item.innerHTML = `
+                        <a href="publication-template.html?paper=${paper}" class="publication-link-home">
+                            <p class="publication-text">${formattedText}</p>
+                        </a>
+                    `;
+                    container.appendChild(item);
+                } catch (error) {
+                    console.error(`Error loading ${paper}:`, error);
+                }
+            }
+        }
+
+        // Load social links
+        async function loadSocialLinks() {
+            try {
+                const response = await fetch('content/social-links.json');
+                const links = await response.json();
+
+                if (links.email) document.getElementById('email-link').href = `mailto:${links.email}`;
+                if (links.github) document.getElementById('github-link').href = links.github;
+                if (links.linkedin) document.getElementById('linkedin-link').href = links.linkedin;
+                if (links.orcid) document.getElementById('orcid-link').href = links.orcid;
+                if (links.scholar) document.getElementById('scholar-link').href = links.scholar;
+            } catch (error) {
+                console.error('Error loading social links:', error);
+            }
+        }
+
+        // Load education from experience.md
+        async function loadEducation() {
+            try {
+                const response = await fetch('content/experience.md');
+                const text = await response.text();
+                const sections = text.split('---');
+
+                let educationItems = [];
+
+                sections.forEach(section => {
+                    const lines = section.trim().split('\n');
+                    let isEducation = false;
+                    let currentItem = {};
+
+                    lines.forEach(line => {
+                        if (line.startsWith('## Education')) {
+                            isEducation = true;
+                        } else if (line.startsWith('## ')) {
+                            isEducation = false;
+                        } else if (isEducation) {
+                            if (line.startsWith('### ')) {
+                                if (currentItem.title) educationItems.push(currentItem);
+                                currentItem = { title: line.replace('### ', '') };
+                            } else if (line.includes('**Institution:**')) {
+                                currentItem.institution = line.split('**Institution:**')[1].trim();
+                            } else if (line.includes('**Date:**')) {
+                                currentItem.date = line.split('**Date:**')[1].trim();
+                            }
+                        }
+                    });
+                    if (currentItem.title && isEducation) educationItems.push(currentItem);
+                });
+
+                const container = document.getElementById('education-list');
+                if (educationItems.length > 0) {
+                    container.innerHTML = educationItems.map(item => `
+                        <div class="education-item">
+                            <div class="education-degree">${item.title}</div>
+                            <div class="education-institution">${item.institution || ''}</div>
+                            <div class="education-date">${item.date || ''}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading education:', error);
+            }
+        }
+
+        // Handle image errors
+        function handleImageError(img, type = 'avatar') {
+            const placeholders = {
+                'avatar': 'assets/placeholder-avatar.svg',
+                'cover': 'assets/placeholder-cover.svg',
+                'image': 'assets/placeholder-image.svg'
+            };
+            img.src = placeholders[type] || placeholders['image'];
+            img.onerror = null; // Prevent infinite loop
+        }
+
+        // Load all content on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProfile();
+            loadResearch();
+            loadRecentPublications();
+            loadSocialLinks();
+            loadEducation();
+
+            // Add error handling to profile photo
+            const profilePhoto = document.querySelector('.profile-photo');
+            if (profilePhoto) {
+                profilePhoto.onerror = function () { handleImageError(this, 'avatar'); };
+            }
+        });
+    </script>
+</body>
+
+</html>

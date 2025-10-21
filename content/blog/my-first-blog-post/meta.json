@@ -1,0 +1,8 @@
+{
+  "title": "My First Blog Post",
+  "date": "January 15, 2025",
+  "readTime": "5 min read",
+  "excerpt": "Welcome to my blog! In this first post, I share my thoughts on starting this journey and what you can expect from future posts.",
+  "tags": ["Introduction", "Personal"],
+  "coverImage": "cover.jpg"
+}
