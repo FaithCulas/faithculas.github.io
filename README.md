@@ -499,9 +499,3 @@ chmod +x generate-sitemap.sh
 6. Run `./generate-sitemap.sh`
 7. Test locally with `python3 -m http.server 8000`
 8. Deploy to your hosting service
-
----
-
-## Support
-
-For issues or questions, refer to the example content in the `content/` directory or check the blog post "Complete Markdown Guide for Blog Posts" for detailed examples.

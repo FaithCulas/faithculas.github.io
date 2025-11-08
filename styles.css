@@ -66,23 +66,16 @@ body {
     border-radius: 4px;
 }
 
-.nav-menu a:hover,
-.nav-menu a.active {
-    color: var(--secondary-color);
-}
 
-.nav-menu a[href="blog.html"] {
-    border: 2px solid var(--secondary-color);
-    color: var(--secondary-color);
-    font-weight: 600;
-}
 
-.nav-menu a[href="blog.html"]:hover {
+
+
+.nav-menu a:hover {
     background-color: var(--secondary-color);
     color: var(--white);
 }
 
-.nav-menu a[href="blog.html"].active {
+.nav-menu a.active {
     background-color: var(--secondary-color);
     color: var(--white);
 }
@@ -350,7 +343,6 @@ section h2 {
     background-color: var(--white);
     color: var(--text-color);
     padding: 3rem 0 2rem 0;
-    border-bottom: 1px solid var(--border-color);
 }
 
 .page-header h1 {
@@ -809,7 +801,8 @@ section h2 {
     margin-bottom: 1.2rem;
 }
 
-.blog-post-body ul, .blog-post-body ol {
+.blog-post-body ul,
+.blog-post-body ol {
     margin-bottom: 1.2rem;
     padding-left: 2rem;
 }
@@ -1071,45 +1064,45 @@ footer {
     .nav-brand {
         display: none;
     }
-    
+
     .navbar .container {
         justify-content: center;
     }
-    
+
     .nav-menu {
         gap: 0.5rem;
     }
-    
+
     .nav-menu a {
         padding: 0.4rem 0.6rem;
         font-size: 0.9rem;
     }
-    
+
     .profile-photo {
         width: 150px;
         height: 150px;
     }
-    
+
     .hero h1 {
         font-size: 2rem;
     }
-    
+
     .subtitle {
         font-size: 1.2rem;
     }
-    
+
     section h2 {
         font-size: 2rem;
     }
-    
+
     .research-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .timeline {
         margin-left: 1rem;
     }
-    
+
     .timeline-item {
         padding-left: 2rem;
     }

@@ -1,1 +1,1 @@
-John Doe, Faith Culas (2024). Understanding Software Development Practices in Modern Teams. In Proceedings of the International Conference on Software Engineering (ICSE).
+Faith Culas (2025). Advancing Cognitive Inclusivity in Software Engineering Tools and Practices. In IEEE/ACM 47th International Conference on Software Engineering: Companion Proceedings (ICSE-Companion).

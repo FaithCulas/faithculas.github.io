@@ -1,1 +1,1 @@
-Faith Culas, Jane Smith (2023). Exploring Cognitive Load in Programming Tasks. In Journal of Systems and Software.
+Faith Culas et al. (2025). Newcomers' Experiences during Debugging: A Cognitive Inclusivity Perspective using GenderMag. In Information and Software Technology.
