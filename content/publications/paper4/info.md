@@ -1,1 +1,1 @@
-Faith Culas et al. (2025). Designing think-aloud studies to identify cognitive biases in software engineering tools: An experience report. Companion Proceedings (SANER-Companion).
+Faith Culas et al. (2026). Designing think-aloud studies to identify cognitive biases in software engineering tools: An experience report. In the 33rd IEEE International Conference on Software Analysis, Evolution and Reengineering: Companion Proceedings (SANER-Companion).
