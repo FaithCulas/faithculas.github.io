@@ -1,34 +1,26 @@
 ## Title
-Newcomers' Experiences during Debugging: A Cognitive Inclusivity Perspective using GenderMag
+Designing think-aloud studies to identify cognitive biases in software engineering tools: An experience report
 
 ## Authors
 faith-culas
+priyanka-dhopade
 kelly-blincoe
 
 ## Date
-2025
+2026
 
 ## Type
-Journal Article
+Conference Paper - Fairness Workshop Paper
 
 ## Publication
-Information and Software Technology
+The 33rd IEEE International Conference on Software Analysis, Evolution and Reengineering: Companion Proceedings (SANER-Companion)
 
 ## Tags
-- Cognitive Diversity
-- Debugging
-- GenderMag
-- Inclusivity
-- Software Engineering
+- Software Development
+- Think-aloud
+- Developer Productivity
+- Empirical studies
 
 ## Abstract
-Context:
-Debugging is a critical practice in software engineering that enables software engineers to ensure the correctness of code by identifying and resolving bugs. It also benefits newcomers as it helps them go through the codebase, understand its structure, and learn about its functionality. Recent research has uncovered that some software engineering tools are not well suited to all ways of thinking, imposing an additional cognitive overhead on individuals whose cognitive styles are not well-supported by the tool. While biases have been explored in other software tools, little is known about whether debugging tools exhibit cognitive biases and introduce “inclusivity bugs”.
-Objective:
-This paper addresses this gap by examining inclusivity bugs that newcomers encounter when using the PyCharm debugger.
-Methods:
-In this study, we performed a controlled lab experiment where we observed 24 software engineering students with little to no experience as they used the PyCharm debugger for a set of tasks. We used a think-aloud protocol to capture participants’ thoughts throughout the experiment. Then, we conducted a thematic analysis, guided by our research question, to identify potential biases in the tool. We used the GenderMag framework to examine the relationship between cognitive style and the inclusivity bugs.
-Results:
-We detail our findings on 21 inclusivity bugs which are caused by 2 main reasons: discoverability and learnability. We identified trends that showed individuals with low self-efficacy, low motivation, risk-averse tendencies, and those who prefer to learn by processes and gather information selectively were the ones who faced the most challenges.
-Conclusion:
-The findings provide insights into how debuggers can be made more inclusive. They also highlight the need for continuous evaluation and adaptation of SE tools and practices to ensure they meet the needs of all users with diverse cognitive styles to ensure fairness.
+This experience report reflects on the process of designing and conducting think-aloud studies to explore cognitive biases in software engineering (SE) tools. While SE tools fundamentally shape how developers work, their design rarely considers diverse cognitive styles. Drawing on GenderMag's five cognitive dimensions, we conducted a series of think-aloud studies with university student developers to examine tools such as debuggers and AI-assisted coding tools and how they support or disadvantage developers with different cognitive styles.
+While GenderMag has been applied to some SE tools, combining it with think-aloud studies remains uncommon.  This paper shares methodological insights gained during the design and execution of these studies. We discuss lessons learned about the think-aloud protocol, participants, task design, and researchers' role, highlighting challenges and strategies for mitigating bias in research design. Our recommendations aim to support researchers in designing robust studies that uncover cognitive biases in SE tools, ultimately contributing to more fairness in SE tools.
