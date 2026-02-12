@@ -2,9 +2,7 @@
 Designing think-aloud studies to identify cognitive biases in software engineering tools: An experience report
 
 ## Authors
-faith-culas
-priyanka-dhopade
-kelly-blincoe
+faith-culas,priyanka-dhopade,kelly-blincoe
 
 ## Date
 2026
