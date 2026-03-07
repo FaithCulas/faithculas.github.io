@@ -165,7 +165,19 @@
                 document.getElementById('pub-venue').textContent = data.publication;
                 document.getElementById('pub-type').textContent = data.type;
                 document.getElementById('pub-abstract').textContent = data.abstract.trim();
-                document.getElementById('pdf-link').href = `content/publications/${paperId}/paper.pdf`;
+                
+                // Check if PDF exists before showing the link
+                const pdfLink = document.getElementById('pdf-link');
+                try {
+                    const pdfResponse = await fetch(`content/publications/${paperId}/paper.pdf`, { method: 'HEAD' });
+                    if (pdfResponse.ok) {
+                        pdfLink.href = `content/publications/${paperId}/paper.pdf`;
+                    } else {
+                        pdfLink.style.display = 'none';
+                    }
+                } catch (error) {
+                    pdfLink.style.display = 'none';
+                }
                 
                 // Add tags
                 const tagsContainer = document.getElementById('pub-tags');

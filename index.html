@@ -19,12 +19,13 @@
                 <li><a href="papers.html">Publications</a></li>
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="experience.html">Experience</a></li>
+                <!-- <li><a href="#contact" class="scroll-link">Contact</a></li> -->
             </ul>
         </div>
     </nav>
 
     <main>
-        <section class="hero">
+        <section class="hero" id="contact">
             <div class="container">
                 <div class="hero-content">
                     <img src="content/avatar.jpg" alt="Profile Photo" class="profile-photo">
@@ -125,7 +126,7 @@
             const text = await response.text();
             const lines = text.split('\n');
 
-            let name = '', title = '', field = '', bio = '', about = '';
+            let name = '', title = '', field = '', affiliation = '', bio = '', about = '';
             let interests = [];
             let section = '';
 
@@ -134,6 +135,7 @@
                 if (line.startsWith('## Name')) section = 'name';
                 else if (line.startsWith('## Title')) section = 'title';
                 else if (line.startsWith('## Field')) section = 'field';
+                else if (line.startsWith('## Affiliation')) section = 'affiliation';
                 else if (line.startsWith('## Bio')) section = 'bio';
                 else if (line.startsWith('## About Me')) section = 'about';
                 else if (line.startsWith('## Interests')) section = 'interests';
@@ -141,6 +143,7 @@
                     if (section === 'name') name = line;
                     else if (section === 'title') title = line;
                     else if (section === 'field') field = line;
+                    else if (section === 'affiliation') affiliation = line;
                     else if (section === 'bio') bio += line + ' ';
                     else if (section === 'about') about += line + '\n\n';
                     else if (section === 'interests' && line.startsWith('-')) {
@@ -151,7 +154,7 @@
 
             document.getElementById('nav-name').textContent = name;
             document.getElementById('profile-name').textContent = name;
-            document.getElementById('profile-title').textContent = `${title} | ${field}`;
+            document.getElementById('profile-title').textContent = `${title} | ${field} | ${affiliation}`;
             document.getElementById('profile-bio').textContent = bio.trim();
             document.getElementById('about-content').innerHTML = `<p>${about.trim().replace(/\n\n/g, '</p><p>')}</p>`;
             document.getElementById('footer-text').textContent = `© 2025 ${name}. All rights reserved.`;
@@ -315,6 +318,18 @@
             if (profilePhoto) {
                 profilePhoto.onerror = function () { handleImageError(this, 'avatar'); };
             }
+
+            // Smooth scroll for contact link
+            document.querySelectorAll('.scroll-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
         });
     </script>
 </body>

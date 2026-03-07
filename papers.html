@@ -106,7 +106,7 @@
                             <p class="publication-text">${formattedText}</p>
                         </a>
                         <div class="paper-links">
-                            <a href="content/publications/${paper}/paper.pdf" class="btn-link" target="_blank">
+                            <a href="content/publications/${paper}/paper.pdf" class="btn-link pdf-link-${paper}" target="_blank">
                                 <i class="fas fa-file-pdf"></i> PDF
                             </a>
                             <button class="btn-link cite-btn" data-paper="${paper}">
@@ -115,6 +115,19 @@
                         </div>
                     `;
                     container.appendChild(item);
+                    
+                    // Check if PDF exists
+                    fetch(`content/publications/${paper}/paper.pdf`, { method: 'HEAD' })
+                        .then(response => {
+                            if (!response.ok) {
+                                const pdfLink = document.querySelector(`.pdf-link-${paper}`);
+                                if (pdfLink) pdfLink.style.display = 'none';
+                            }
+                        })
+                        .catch(() => {
+                            const pdfLink = document.querySelector(`.pdf-link-${paper}`);
+                            if (pdfLink) pdfLink.style.display = 'none';
+                        });
                 } catch (error) {
                     console.error(`Error loading ${paper}:`, error);
                 }

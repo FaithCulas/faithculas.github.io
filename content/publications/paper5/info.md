@@ -1,0 +1,1 @@
+Faith Culas et al. (2026). Code Comprehension Beyond Best Practices: Exploring the  Developer Cognitive Spectrum. In IEEE/ACM 48th International Conference on Software Engineering: Companion Proceedings (ICSE-Companion).
