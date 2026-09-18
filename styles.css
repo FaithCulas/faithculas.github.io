@@ -6,12 +6,13 @@
 }
 
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #1e5a8e;
+    --primary-color: #293e70;
+    --secondary-color: #405eaa;
+    --highlight-color: #799eff;
     --accent-color: #e74c3c;
-    --text-color: #333;
-    --light-gray: #f8f9fa;
-    --border-color: #e0e0e0;
+    --text-color: #3d3b38;
+    --light-gray: #ffffff;
+    --border-color: #e5e2dc;
     --white: #ffffff;
 }
 
@@ -177,13 +178,13 @@ section h2 {
     font-weight: 600;
     font-size: 1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(30, 90, 142, 0.2);
+    box-shadow: 0 2px 8px rgba(41, 41, 41, 0.2);
 }
 
 .cv-button:hover {
     background-color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 90, 142, 0.3);
+    box-shadow: 0 4px 12px rgba(41, 41, 41, 0.3);
 }
 
 .cv-button i {
@@ -1106,4 +1107,169 @@ footer {
     .timeline-item {
         padding-left: 2rem;
     }
+}
+/* Periwinkle blue and pure white with softly drifting color. */
+.navbar { background: #ffffff; }
+.nav-brand { font-family: Georgia, serif; font-weight: 400; }
+.nav-menu a { border-radius: 30px; }
+.home-page .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    text-align: left;
+    padding: 5rem 0 2rem;
+    background: #ffffff;
+}
+.home-page .hero::before,
+.home-page .hero::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    width: clamp(280px, 42vw, 580px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: color-drift 8s ease-in-out infinite alternate;
+}
+.home-page .hero::before {
+    top: -160px;
+    right: -80px;
+    background: radial-gradient(circle, rgba(121, 158, 255, .38), rgba(121, 158, 255, .12) 45%, transparent 72%);
+}
+.home-page .hero::after {
+    bottom: -210px;
+    left: -100px;
+    background: radial-gradient(circle, rgba(207, 173, 193, .42), rgba(207, 173, 193, .16) 45%, transparent 72%);
+    animation-delay: -4s;
+    animation-duration: 11s;
+}
+@keyframes color-drift {
+    from { transform: translate(-55px, -30px) scale(.9); }
+    to { transform: translate(85px, 90px) scale(1.12); }
+}
+.home-page .hero > .container { position: relative; z-index: 1; }
+.home-page .hero-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+    padding-bottom: 3rem;
+}
+.portrait-wrap { position: relative; padding: 14px 14px 0; }
+.home-page .profile-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 24px;
+    border: 0;
+    margin: 0;
+}
+.portrait-note {
+    display: block;
+    margin-top: 1.25rem;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: .95rem;
+    font-style: italic;
+    color: #615d56;
+}
+.hero-eyebrow { font-size: .85rem; letter-spacing: .17em; text-transform: uppercase; margin-bottom: .7rem; }
+.home-page .hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(3.5rem, 6.5vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -.06em;
+    line-height: 1.08;
+    margin-bottom: 1.7rem;
+}
+.home-page .subtitle { max-width: 440px; font-size: 1.05rem; line-height: 1.9; color: #615d56; }
+.home-page .bio:empty { display: none; }
+.home-page .bio { margin: 0; }
+.home-page .social-links { justify-content: flex-start; gap: 1.25rem; }
+.home-page .social-link { font-size: 1.4rem; }
+.home-page .resume-download { margin-top: 1.75rem; }
+.home-page .cv-button { border-radius: 30px; box-shadow: none; padding: .75rem 1.6rem; }
+.motion-toggle {
+    display: block;
+    margin-left: auto;
+    padding: .4rem .7rem;
+    border: 1px solid #a6a099;
+    border-radius: 30px;
+    color: #49453f;
+    background: transparent;
+    font: inherit;
+    font-size: .75rem;
+    cursor: pointer;
+}
+.motion-paused .hero::before, .motion-paused .hero::after { animation-play-state: paused; }
+a:focus-visible, .motion-toggle:focus-visible { outline: 2px solid #405eaa; outline-offset: 5px; }
+section h2 { font-family: Georgia, serif; font-weight: 400; letter-spacing: -.035em; }
+.home-page .about .container { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; }
+.home-page .about p { font-size: 1.05rem; }
+.home-page .two-column-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.home-page .my-research p { max-width: 850px; }
+@media (max-width: 768px) {
+    .home-page .hero { padding-top: 2.5rem; }
+    .home-page .hero-content { grid-template-columns: 1fr; gap: 2.25rem; text-align: center; }
+    .portrait-wrap { width: min(100%, 360px); margin: 0 auto; }
+    .home-page .hero h1 { font-size: clamp(3.4rem, 12vw, 5rem); }
+    .home-page .subtitle, .home-page .bio { margin-left: auto; margin-right: auto; }
+    .home-page .social-links { justify-content: center; }
+    .home-page .about .container, .home-page .two-column-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .home-page section { padding: 3rem 0; }
+    section h2 { margin-bottom: 1.25rem; }
+    .nav-menu { gap: .1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .home-page .hero::before, .home-page .hero::after { animation: none; }
+    .motion-toggle { display: none; }
+    *, *::before, *::after { transition: none; }
+}
+
+/* Shared page and article styling. */
+.page-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+}
+.page-header h1,
+.publication-detail h1,
+.blog-post-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    letter-spacing: -.045em;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.15;
+}
+.page-header p, .pub-meta, .blog-post-meta, .blog-meta {
+    color: #615d56;
+}
+.btn-link, .btn-link-small {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    border-radius: 30px;
+}
+.btn-link:hover, .btn-link-small:hover {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--white);
+}
+.tag, .blog-tag { background: var(--secondary-color); }
+.blog-card h2, .blog-post-body h2, .blog-post-body h3 {
+    font-family: Georgia, serif;
+    font-weight: 400;
+}
+@media (max-width: 768px) {
+    .pub-actions, .paper-links, .blog-post-meta { flex-wrap: wrap; }
+}
+
+/* Keep dark text readable on the requested light blue accent. */
+.nav-menu a.active,
+.nav-menu a:hover,
+.cv-button,
+.cv-button:hover {
+    background-color: var(--highlight-color);
+    color: #202c47;
 }

@@ -10,7 +10,7 @@
     <script src="markdown-renderer.js"></script>
 </head>
 
-<body>
+<body class="home-page">
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand" id="nav-name">[Your Name]</div>
@@ -28,7 +28,12 @@
         <section class="hero" id="contact">
             <div class="container">
                 <div class="hero-content">
-                    <img src="content/avatar.jpg" alt="Profile Photo" class="profile-photo">
+                    <div class="portrait-wrap">
+                        <img src="content/avatar.jpg" alt="Faith Culas" class="profile-photo" fetchpriority="high">
+                        <span class="portrait-note">Researcher. Builder. Curious human.</span>
+                    </div>
+                    <div class="hero-intro">
+                    <p class="hero-eyebrow">Hello, I’m</p>
                     <h1 id="profile-name">[Your Name]</h1>
                     <p class="subtitle" id="profile-title">PhD Researcher | [Your Field]</p>
                     <p class="bio" id="profile-bio">Brief introduction about yourself and your research interests.</p>
@@ -60,7 +65,9 @@
                             <i class="fas fa-download"></i> Download CV
                         </a>
                     </div>
+                    </div>
                 </div>
+                <button class="motion-toggle" type="button" aria-pressed="false">Pause background</button>
             </div>
         </section>
 
@@ -304,6 +311,13 @@
             img.src = placeholders[type] || placeholders['image'];
             img.onerror = null; // Prevent infinite loop
         }
+
+        const motionToggle = document.querySelector('.motion-toggle');
+        motionToggle.addEventListener('click', () => {
+            const paused = document.body.classList.toggle('motion-paused');
+            motionToggle.setAttribute('aria-pressed', String(paused));
+            motionToggle.textContent = paused ? 'Play background' : 'Pause background';
+        });
 
         // Load all content on page load
         window.addEventListener('DOMContentLoaded', () => {
