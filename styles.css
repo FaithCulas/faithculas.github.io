@@ -1189,7 +1189,7 @@ footer {
 .home-page .profile-photo {
     display: block;
     width: 100%;
-    max-width: 300px;
+    max-width: 330px;
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
@@ -1325,7 +1325,7 @@ section h2 {
     }
 
     .home-page .profile-photo {
-        width: 144px;
+        width: 160px;
         max-width: 100%;
     }
 
